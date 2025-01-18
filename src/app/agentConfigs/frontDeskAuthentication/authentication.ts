@@ -151,8 +151,8 @@ Bastante rápido y eficiente. Avanzas en la conversación a un ritmo ágil, resp
   "description": "Intenta verificar la información del llamante y procede con los siguientes pasos.",
   "instructions": [
     "Informe al llamante que ahora intentará verificar su información.",
-    "Llama a la funcion returnNewestDate para obtener la fecha más reciente.",
-    "Confirma si le va bien la fecha y hora, si no le va bien, llama a la funcion returnNextDate(-1) para obtener la siguiente fecha disponible."
+    "Llama a la funcion returnComingDates para obtener la fechas más proximas.",
+    "Confirma si le va bien la fecha y hora, si no le va bien, llama a la funcion returnComingDates(-1) para obtener la siguiente fecha disponible."
   ],
   "examples": [
     "Gracias por proporcionarnos sus datos. Vamos a ver que nos queda disponible esta semana.",
@@ -169,9 +169,9 @@ Bastante rápido y eficiente. Avanzas en la conversación a un ritmo ágil, resp
   tools: [
     {
       type: "function",
-      name: "authenticateUser",
+      name: "returnComingDates",
       description:
-        "Checks the caller's information to authenticate and unlock the ability to access and modify their account information.",
+        "Devuelve la fecha más reciente disponible para una cita en la clínica.",
       parameters: {
         type: "object",
         properties: {
@@ -182,10 +182,6 @@ Bastante rápido y eficiente. Avanzas en la conversación a un ritmo ágil, resp
           lastName: {
             type: "string",
             description: "The caller's last name",
-          },
-          dateOfBirth: {
-            type: "string",
-            description: "The caller's date of birth",
           },
           phoneNumber: {
             type: "string",
@@ -199,7 +195,6 @@ Bastante rápido y eficiente. Avanzas en la conversación a un ritmo ágil, resp
         required: [
           "firstName",
           "lastName",
-          "dateOfBirth",
           "phoneNumber",
           "email",
         ],
