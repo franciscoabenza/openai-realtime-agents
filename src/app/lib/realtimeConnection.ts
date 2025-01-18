@@ -1,15 +1,9 @@
-import { Warning } from "postcss";
 import { RefObject } from "react";
 
 export async function createRealtimeConnection(
   EPHEMERAL_KEY: string,
   audioElement: RefObject<HTMLAudioElement | null>
 ): Promise<{ pc: RTCPeerConnection; dc: RTCDataChannel }> {
-  // Check for browser compatibility
-  if (!navigator.mediaDevices?.getUserMedia) {
-    throw new Warning("Your browser does not support microphone input or needs HTTPS.");
-  }
-
   const pc = new RTCPeerConnection();
 
   pc.ontrack = (e) => {
@@ -18,8 +12,17 @@ export async function createRealtimeConnection(
     }
   };
 
-  const ms = await navigator.mediaDevices.getUserMedia({ audio: true });
-  pc.addTrack(ms.getTracks()[0]);
+  try {
+    // Check for support and try to get microphone access
+    if (navigator.mediaDevices?.getUserMedia) {
+      const ms = await navigator.mediaDevices.getUserMedia({ audio: true });
+      pc.addTrack(ms.getTracks()[0]);
+    } else {
+      console.warn("Microphone access not available - proceeding in text-only mode");
+    }
+  } catch (error) {
+    console.warn("Could not access microphone - proceeding in text-only mode:", error);
+  }
 
   const dc = pc.createDataChannel("oai-events");
 
