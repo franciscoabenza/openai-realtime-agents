@@ -1,3 +1,4 @@
+import { Warning } from "postcss";
 import { RefObject } from "react";
 
 export async function createRealtimeConnection(
@@ -6,7 +7,7 @@ export async function createRealtimeConnection(
 ): Promise<{ pc: RTCPeerConnection; dc: RTCDataChannel }> {
   // Check for browser compatibility
   if (!navigator.mediaDevices?.getUserMedia) {
-    throw new Error("Your browser does not support microphone input or needs HTTPS.");
+    throw new Warning("Your browser does not support microphone input or needs HTTPS.");
   }
 
   const pc = new RTCPeerConnection();
