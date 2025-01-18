@@ -250,7 +250,7 @@ function App() {
       session: {
         modalities: ["text", "audio"],
         instructions,
-        voice: ["Alloy", "Ash", "Ballad", "Coral", "Echo", "Sage", "Shimmer", "Verse"][Math.floor(Math.random() * 8)], // Randomly pick one of the available voices
+        voice: "alloy", // "echo" | "alloy" son los que mejor suenan en español
         input_audio_format: "pcm16",
         output_audio_format: "pcm16",
         input_audio_transcription: { model: "whisper-1" },
