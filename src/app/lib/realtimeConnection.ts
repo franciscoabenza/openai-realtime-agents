@@ -4,6 +4,11 @@ export async function createRealtimeConnection(
   EPHEMERAL_KEY: string,
   audioElement: RefObject<HTMLAudioElement | null>
 ): Promise<{ pc: RTCPeerConnection; dc: RTCDataChannel }> {
+  // Check for browser compatibility
+  if (!navigator.mediaDevices?.getUserMedia) {
+    throw new Error("Your browser does not support microphone input or needs HTTPS.");
+  }
+
   const pc = new RTCPeerConnection();
 
   pc.ontrack = (e) => {

@@ -22,6 +22,7 @@ import { useHandleServerEvent } from "./hooks/useHandleServerEvent";
 // Utilities
 import { createRealtimeConnection } from "./lib/realtimeConnection";
 
+
 // Agent configs
 import { allAgentSets, defaultAgentSetKey } from "@/app/agentConfigs";
 
@@ -93,9 +94,12 @@ function App() {
   }, [searchParams]);
 
   useEffect(() => {
-    if (selectedAgentName && sessionStatus === "DISCONNECTED") {
+    if (!selectedAgentName) return;
+
+    if (sessionStatus === "DISCONNECTED") {
       connectToRealtime();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAgentName]);
 
   useEffect(() => {
