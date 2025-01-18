@@ -9,4 +9,4 @@ export const allAgentSets: AllAgentConfigsType = {
   simpleExample,
 };
 
-export const defaultAgentSetKey = "simpleExample";
+export const defaultAgentSetKey = "frontDeskAuthentication";
